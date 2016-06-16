@@ -53,8 +53,16 @@ public:
     int                 deviceSelected;
     
     /// CONFIG
-    void                        readConfig();
-    string                      confNetworkDevice;
-    int                         confTCPPort;
+    void                readConfig();
+    string              confNetworkDevice;
+    int                 confTCPPort;
+    
+    
+    void                readCommands();
+    
+    
+    // Send info
+    vector<pair<string, vector<string>>> tcpCommands;
+    
 
 };

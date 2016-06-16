@@ -12,6 +12,8 @@ void ofApp::setup()
     
     /// READ CONF
     readConfig();
+    
+    readCommands();
 
     // TCP
     ///////
@@ -43,7 +45,7 @@ void ofApp::update()
 //-------------------------------------------------------------------------------
 void ofApp::draw()
 {
-    cout<<ofGetTimestampString()<<endl;
+
 }
 
 //--------------------------------------------------------------
@@ -127,6 +129,34 @@ void ofApp::readConfig()
     
 }
 
+//--------------------------------------------------------------
+void ofApp::readCommands()
+{
+    ofxXmlSettings configXML;
+    configXML.load("./app/tcpCommands.xml");
+    configXML.pushTag("tcpCommands");
+    for(int i = 0; configXML.pushTag("order", i) ; i++){
+        pair<string, vector<string>> tempOrder;
+        tempOrder.first = configXML.getValue("keycode", "error");
+        for(int j = 0; configXML.pushTag("command", j); j++){
+            tempOrder.second.push_back(configXML.getValue("s", " "));
+            configXML.popTag();
+        }
+        tcpCommands.push_back(tempOrder);
+        configXML.popTag();
+    }
+    //configXML.popTag();
+
+    
+    /// TCP SETUP
+    confTCPPort = configXML.getValue("TCPPort",11999);
+    
+    /// add to LOG
+    //ofLog(OF_LOG_NOTICE) << "ofApp :: readConfig :: networkDevice " << confNetworkDevice << " :: TCP Port " << confTCPPort << endl;
+    cout << "ofApp :: readConfig :: networkDevice " << confNetworkDevice << " :: TCP Port " << confTCPPort << endl;
+    
+}
+
 //-------------------------------------------------------------------------------
 int ofApp::getIdFromSlave(int i)
 {
@@ -135,7 +165,6 @@ int ofApp::getIdFromSlave(int i)
     
     //return (ofToInt(whichIdString));
 }
-
 
 
 #pragma mark ---------- System events ----------

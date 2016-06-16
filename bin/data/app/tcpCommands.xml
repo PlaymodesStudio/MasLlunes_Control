@@ -1,0 +1,12 @@
+<tcpCommands>
+    <order>
+        <keycode>2</keycode>
+        <command><s>3 loadvideo fingers.mov 2</s></command>
+        <command><s>4 loadvideo test.mov 3</s></command>
+    </order>
+    <order>
+        <keycode>3</keycode>
+        <command><s>4 loadvideo fingers.mov 3</s></command>
+        <command><s>5 loadvideo test.mov 4</s></command>
+    </order>
+</tcpCommands>

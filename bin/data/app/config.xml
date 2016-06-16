@@ -1,0 +1,4 @@
+<config>
+    <networkDevice>en2</networkDevice>
+    <TCPPort>11999</TCPPort>
+</config>
