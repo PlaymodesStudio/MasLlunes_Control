@@ -59,6 +59,7 @@ public:
     
     
     void                readCommands();
+    string              keybuffer;
     
     
     // Send info

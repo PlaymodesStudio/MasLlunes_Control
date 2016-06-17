@@ -166,12 +166,20 @@ int ofApp::getIdFromSlave(int i)
     //return (ofToInt(whichIdString));
 }
 
-
 #pragma mark ---------- System events ----------
 //-------------------------------------------------------------------------------
 void ofApp::keyPressed(int key)
 {
-
+    if(key == '+')
+        cout<<"volume up"<<endl;
+    else if(key == '-')
+        cout<<"Volume Down"<<endl;
+    else if(key == OF_KEY_RETURN){
+        cout<<"Send commands from keycombination: "<<keybuffer<<endl;
+        keybuffer.clear();
+    }
+    else
+        keybuffer+=key;
 }
 
 //--------------------------------------------------------------

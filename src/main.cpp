@@ -5,7 +5,8 @@
 //========================================================================
 int main( )
 {
-    ofAppNoWindow headless;
-    ofSetupOpenGL(&headless, 1400, 400, OF_WINDOW);
-	ofRunApp(new ofApp());
+    //ofAppNoWindow headless;
+//    ofSetupOpenGL(&headless, 1400, 400, OF_WINDOW);
+	ofSetupOpenGL(1400, 400, OF_WINDOW);
+    ofRunApp(new ofApp());
 }
