@@ -37,6 +37,7 @@ public:
     void                handleTcpOut();
     void                sendTcpMessageToAll(string mess);
     void                sendTcpMessageToSlave(string mess, int id);
+    void                processTcpCommand(string command);
     void                handleTcpIn();
     float               timeLastConnection;
     void                sendTCPPingAll();

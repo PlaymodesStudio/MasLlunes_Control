@@ -176,6 +176,13 @@ void ofApp::keyPressed(int key)
         cout<<"Volume Down"<<endl;
     else if(key == OF_KEY_RETURN){
         cout<<"Send commands from keycombination: "<<keybuffer<<endl;
+        for(auto preset : tcpCommands){
+            if(preset.first == keybuffer){
+                cout<<"Found Keycode"<<endl;
+                for(auto command : preset.second)
+                    processTcpCommand(command);
+            }
+        }
         keybuffer.clear();
     }
     else
@@ -327,6 +334,11 @@ void ofApp::sendTcpMessageToSlave(string mess, int pos)
             cout << "TCP Send : " << mess << endl;
         }
     }
+}
+
+//--------------------------------------------------------------
+void ofApp::processTcpCommand(string command){
+    cout<<command<<endl;
 }
 
 //--------------------------------------------------------------
