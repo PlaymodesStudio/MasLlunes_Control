@@ -14,6 +14,8 @@ void ofApp::setup()
     readConfig();
     
     readCommands();
+    initialTimeStamp = 0;
+    timer = 0;
 
     // TCP
     ///////
@@ -39,6 +41,18 @@ void ofApp::update()
         
         // send ping to all
         sendTCPPingAll();
+    }
+    
+    //Timer to execute commands
+    if(selectedCommandSequence.size() != 0){
+        timer = ofGetElapsedTimef() - initialTimeStamp;
+        while(selectedCommandSequence[0].first < timer){
+            cout<<"Send command: "<<selectedCommandSequence[0].second<<endl;
+            processTcpCommand(selectedCommandSequence[0].second);
+            selectedCommandSequence.pop_front();
+            if(selectedCommandSequence.size() == 0)
+                break;
+        }
     }
 }
 
@@ -136,10 +150,13 @@ void ofApp::readCommands()
     configXML.load("./app/tcpCommands.xml");
     configXML.pushTag("tcpCommands");
     for(int i = 0; configXML.pushTag("order", i) ; i++){
-        pair<string, vector<string>> tempOrder;
+        pair<string, vector<pair<float, string>>> tempOrder;
         tempOrder.first = configXML.getValue("keycode", "error");
         for(int j = 0; configXML.pushTag("command", j); j++){
-            tempOrder.second.push_back(configXML.getValue("s", " "));
+            pair<float, string> tempCommand;
+            tempCommand.first = configXML.getValue("t", 0.0);
+            tempCommand.second = configXML.getValue("s", " ");
+            tempOrder.second.push_back(tempCommand);
             configXML.popTag();
         }
         tcpCommands.push_back(tempOrder);
@@ -178,9 +195,12 @@ void ofApp::keyPressed(int key)
         cout<<"Send commands from keycombination: "<<keybuffer<<endl;
         for(auto preset : tcpCommands){
             if(preset.first == keybuffer){
-                cout<<"Found Keycode"<<endl;
+                cout<<"Start Counter"<<endl;
+                initialTimeStamp = ofGetElapsedTimef();
+                //Clear command sequence deque and fill with new info.
+                selectedCommandSequence.clear();
                 for(auto command : preset.second)
-                    processTcpCommand(command);
+                    selectedCommandSequence.push_back(command);
             }
         }
         keybuffer.clear();

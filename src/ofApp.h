@@ -61,10 +61,13 @@ public:
     
     void                readCommands();
     string              keybuffer;
+    float               timer;
+    float               initialTimeStamp;
     
     
     // Send info
-    vector<pair<string, vector<string>>> tcpCommands;
+    vector<pair<string, vector<pair<float,string>>>> tcpCommands;
+    deque<pair<float,string>> selectedCommandSequence;
     
 
 };
