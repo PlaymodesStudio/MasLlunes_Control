@@ -7,14 +7,14 @@
         </command>
         <command>
             <t>1</t>
-            <s>4 loadvideo test.mov 3</s>
+            <s>1 loadVideo test1080.mov 0</s>
         </command>
     </order>
     <order>
         <keycode>3</keycode>
         <command>
             <t>5.2</t>
-            <s>4 loadvideo fingers.mov 3</s>
+            <s>11 loadVideo fingers.mov 3</s>
         </command>
         <command>
             <t>9.9</t>

@@ -43,6 +43,8 @@ public:
     void                sendTCPPingAll();
     
     void                sendMessageToSlavesFolder(string messageWithoutId);
+    
+    vector<string>      connectedClients;
 
     // IP
     vector<string>      getDevicesIPs();

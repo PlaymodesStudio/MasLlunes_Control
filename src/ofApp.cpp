@@ -302,16 +302,7 @@ void ofApp::handleTcpIn()
                     s.name = "defaultName";
                     s.ip = tcpServer.getClientIP(i);
                 }
-                
-                
-//                ofxDatGuiToggle* tog = slavesListFolder->addToggle(ofToString(i) + " " + ofToString(s.id) + " " +s.name + " " + s.ip,true);
-//                tog->setStripe(ofColor(0,128,255), 5);
-//                tog->setBackgroundColor(ofColor(32));
-//                // stupid hack to
-//                guiSlaves->setPosition(guiSlaves->getPosition().x,guiSlaves->getPosition().y);
-//                
-//                s.toggle = tog;
-//                slavesListFolder->expand();
+                connectedClients.push_back(ofToString(i) + " " + ofToString(s.id) + " " +s.name + " " + s.ip);
             }
             if(tokens[0]=="awake")
             {
@@ -358,21 +349,33 @@ void ofApp::sendTcpMessageToSlave(string mess, int pos)
 
 //--------------------------------------------------------------
 void ofApp::processTcpCommand(string command){
-    cout<<command<<endl;
+    sendMessageToSlavesFolder(command);
 }
 
 //--------------------------------------------------------------
 void ofApp::sendMessageToSlavesFolder(string m)
 {
-//    int num = slavesListFolder->size();
-//    for(int i=0;i<num;i++)
-//    {
-//        ofxDatGuiToggle* t = slavesListFolder->getToggleAt(i);
-//        if(t->getEnabled()){
-//            string messageTcp = "all " + m;
-//            sendTcpMessageToSlave(messageTcp, getIdFromSlave(i));
-//        }
-//    }
+    int num = connectedClients.size();
+    istringstream iss(m);
+    vector<string> tokens;
+    copy(istream_iterator<string>(iss),
+         istream_iterator<string>(),
+         back_inserter(tokens));
+    
+    string request_id = tokens[0];
+    for(int i=0;i<num;i++)
+    {
+        istringstream iss2(connectedClients[i]);
+        vector<string> tokens2;
+        copy(istream_iterator<string>(iss2),
+             istream_iterator<string>(),
+             back_inserter(tokens2));
+        string id = tokens2[1];
+        if(id == request_id){
+            string messageTcp = m;
+            sendTcpMessageToSlave(messageTcp, ofToInt(tokens2[0]));
+        }
+    }
 }
 
 
