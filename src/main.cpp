@@ -5,8 +5,10 @@
 //========================================================================
 int main( )
 {
-    //ofAppNoWindow headless;
-//    ofSetupOpenGL(&headless, 1400, 400, OF_WINDOW);
-	ofSetupOpenGL(1400, 400, OF_WINDOW);
+#ifdef TARGET_RASPBERRY_PI
+    ofSetupOpenGL(1920, 1080, OF_FULLSCREEN);
+#else
+    ofSetupOpenGL(1400, 400, OF_WINDOW);		// <-------- setup the GL context
+#endif
     ofRunApp(new ofApp());
 }
