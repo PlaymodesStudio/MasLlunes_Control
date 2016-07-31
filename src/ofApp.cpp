@@ -191,7 +191,7 @@ void ofApp::keyPressed(int key)
         cout<<"volume up"<<endl;
     else if(key == '-')
         cout<<"Volume Down"<<endl;
-    else if(key == 13 || key == OF_KEY_RETURN){ //IN RPI KEY RETURN IS 10 and has to be 13
+    else if(key == 10 || key == OF_KEY_RETURN){ //IN RPI KEY RETURN IS 10 and has to be 13
         cout<<"Send commands from keycombination: "<<keybuffer<<endl;
         for(auto preset : tcpCommands){
             if(preset.first == keybuffer){
@@ -208,7 +208,7 @@ void ofApp::keyPressed(int key)
     else
         keybuffer+=key;
     
-    cout<<char(key)<< " --- Enter keycode: " << OF_KEY_RETURN << endl;
+    cout<<char(key)  << " " << key << " --- Enter keycode: " << OF_KEY_RETURN << endl;
 }
 
 //--------------------------------------------------------------
