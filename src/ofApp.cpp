@@ -33,6 +33,7 @@ void ofApp::update()
         ofxOscMessage m;
         osc.getNextMessage(m);
         cout<<m.getAddress() << " -- " << m.getArgAsString(0) << endl;
+        lastChar = m.getArgAsString(0);
     }
     
     
@@ -70,7 +71,7 @@ void ofApp::update()
 //-------------------------------------------------------------------------------
 void ofApp::draw()
 {
-
+    ofDrawBitmapString(lastChar, 20, 50);
 }
 
 //--------------------------------------------------------------

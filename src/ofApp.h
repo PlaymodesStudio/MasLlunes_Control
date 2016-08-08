@@ -70,6 +70,7 @@ public:
     float               volume;
     
     ofxOscReceiver      osc;
+    string              lastChar;
     
     
     // Send info
