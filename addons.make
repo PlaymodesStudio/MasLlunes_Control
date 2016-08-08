@@ -1,2 +1,3 @@
 ofxNetwork
+ofxOsc
 ofxXmlSettings

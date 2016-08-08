@@ -4,6 +4,7 @@
 #include "ofxNetwork.h"
 #include "LocalAddressGrabber.h"
 #include "ofxXmlSettings.h"
+#include "ofxOsc.h"
 
 typedef struct
 {
@@ -67,6 +68,8 @@ public:
     float               initialTimeStamp;
     
     float               volume;
+    
+    ofxOscReceiver      osc;
     
     
     // Send info

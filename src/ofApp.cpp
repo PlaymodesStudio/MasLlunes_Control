@@ -21,11 +21,21 @@ void ofApp::setup()
     // TCP
     ///////
     setupTCPConnection(confTCPPort);
+    
+    
+    osc.setup(12345);
 }
 
 //-------------------------------------------------------------------------------
 void ofApp::update()
 {
+    while(osc.hasWaitingMessages()){
+        ofxOscMessage m;
+        osc.getNextMessage(m);
+        cout<<m.getAddress() << " -- " << m.getArgAsString(0) << endl;
+    }
+    
+    
     // TCP
     tcpLock.lock();
     handleTcpIn();
