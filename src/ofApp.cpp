@@ -29,11 +29,23 @@ void ofApp::setup()
 //-------------------------------------------------------------------------------
 void ofApp::update()
 {
+    int equalHack = 0;
     while(osc.hasWaitingMessages()){
         ofxOscMessage m;
         osc.getNextMessage(m);
         cout<<m.getAddress() << " -- " << m.getArgAsString(0) << endl;
         lastChar = m.getArgAsString(0);
+        if(equalHack == 0){
+            if(lastChar == "'\\n'")
+                keyPressed(OF_KEY_RETURN);
+            else if(lastChar == "'\\x1b'"){
+                equalHack = 4;
+                keyPressed('=');
+            }
+            else
+                keyPressed((int)lastChar[lastChar.size()-2]);
+        }else
+            equalHack--;
     }
     
     
@@ -200,9 +212,8 @@ int ofApp::getIdFromSlave(int i)
 
 #pragma mark ---------- System events ----------
 //-------------------------------------------------------------------------------
-void ofApp::keyPressed(ofKeyEventArgs &args)
+void ofApp::keyPressed(int key)
 {
-    int key = args.key;
     if(key == '+'){
         volume += 0.05;
         volume = ofClamp(volume, 0, 1);
@@ -213,7 +224,7 @@ void ofApp::keyPressed(ofKeyEventArgs &args)
         volume = ofClamp(volume, 0, 1);
         processTcpCommand("2 volume "+ofToString(volume));
     }
-    else if(key == 10 || key == OF_KEY_RETURN){ //IN RPI KEY RETURN IS 10 and has to be 13
+    else if(key == OF_KEY_RETURN){ //IN RPI KEY RETURN IS 10 and has to be 13, with osc your receive a n
         cout<<"Send commands from keycombination: "<<keybuffer<<endl;
         for(auto preset : tcpCommands){
             if(preset.first == keybuffer){
@@ -230,7 +241,7 @@ void ofApp::keyPressed(ofKeyEventArgs &args)
     else
         keybuffer+=key;
     
-    cout<<char(key)  << " " << key << "--" << args.keycode << " --- Enter keycode: " << OF_KEY_RETURN << " " << volume<<endl;
+    cout<<char(key)  << " " << key  << " --- Enter keycode: " << OF_KEY_RETURN << " " << volume<<endl;
 }
 
 //--------------------------------------------------------------
