@@ -189,8 +189,9 @@ int ofApp::getIdFromSlave(int i)
 
 #pragma mark ---------- System events ----------
 //-------------------------------------------------------------------------------
-void ofApp::keyPressed(int key)
+void ofApp::keyPressed(ofKeyEventArgs &args)
 {
+    int key = args.key;
     if(key == '+'){
         volume += 0.05;
         volume = ofClamp(volume, 0, 1);
@@ -218,7 +219,7 @@ void ofApp::keyPressed(int key)
     else
         keybuffer+=key;
     
-    cout<<char(key)  << " " << key << " --- Enter keycode: " << OF_KEY_RETURN << " " << volume<<endl;
+    cout<<char(key)  << " " << key << "--" << args.keycode << " --- Enter keycode: " << OF_KEY_RETURN << " " << volume<<endl;
 }
 
 //--------------------------------------------------------------

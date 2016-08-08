@@ -21,7 +21,7 @@ public:
     void update();
     void exit();
     
-    void keyPressed(int key);
+    void keyPressed(ofKeyEventArgs &args);
     void mouseMoved(int x, int y);
 
 
