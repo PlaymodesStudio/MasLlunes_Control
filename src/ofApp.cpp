@@ -9,6 +9,7 @@ void ofApp::setup()
     networkDevices       = getDevicesIPs();
     networkDevicesAndIPs = buildDevicesIPsString();
     timeLastConnection = ofGetElapsedTimef();
+    volume = 0;
     
     /// READ CONF
     readConfig();
@@ -137,6 +138,9 @@ void ofApp::readConfig()
     /// TCP SETUP
     confTCPPort = configXML.getValue("TCPPort",11999);
     
+    //Vol
+    volume = configXML.getValue("volume", 0.5);
+    
     /// add to LOG
     //ofLog(OF_LOG_NOTICE) << "ofApp :: readConfig :: networkDevice " << confNetworkDevice << " :: TCP Port " << confTCPPort << endl;
     cout << "ofApp :: readConfig :: networkDevice " << confNetworkDevice << " :: TCP Port " << confTCPPort << endl;
@@ -187,10 +191,16 @@ int ofApp::getIdFromSlave(int i)
 //-------------------------------------------------------------------------------
 void ofApp::keyPressed(int key)
 {
-    if(key == '+')
-        cout<<"volume up"<<endl;
-    else if(key == '-')
-        cout<<"Volume Down"<<endl;
+    if(key == '+'){
+        volume += 0.05;
+        volume = ofClamp(volume, 0, 1);
+        processTcpCommand("2 volume "+ofToString(volume));
+    }
+    else if(key == '-'){
+        volume -= 0.05;
+        volume = ofClamp(volume, 0, 1);
+        processTcpCommand("2 volume "+ofToString(volume));
+    }
     else if(key == 10 || key == OF_KEY_RETURN){ //IN RPI KEY RETURN IS 10 and has to be 13
         cout<<"Send commands from keycombination: "<<keybuffer<<endl;
         for(auto preset : tcpCommands){
@@ -208,7 +218,7 @@ void ofApp::keyPressed(int key)
     else
         keybuffer+=key;
     
-    cout<<char(key)  << " " << key << " --- Enter keycode: " << OF_KEY_RETURN << endl;
+    cout<<char(key)  << " " << key << " --- Enter keycode: " << OF_KEY_RETURN << " " << volume<<endl;
 }
 
 //--------------------------------------------------------------

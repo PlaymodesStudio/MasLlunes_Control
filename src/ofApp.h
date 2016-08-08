@@ -66,6 +66,8 @@ public:
     float               timer;
     float               initialTimeStamp;
     
+    float               volume;
+    
     
     // Send info
     vector<pair<string, vector<pair<float,string>>>> tcpCommands;

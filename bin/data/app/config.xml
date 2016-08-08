@@ -1,4 +1,5 @@
 <config>
     <networkDevice>en2</networkDevice>
     <TCPPort>11999</TCPPort>
+    <volume>0.7</volume>
 </config>
