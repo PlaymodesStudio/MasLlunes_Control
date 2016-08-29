@@ -9,108 +9,96 @@
             <t>0</t>
             <s>2 loadVideo musicaAmiental.mov 0</s>
         </command>
+        <!-- Set the walls videos to loop true (Not done, we use config.xml) -->
     </order>
     
     <order>    
         <keycode>0</keycode>
-        <comand>
-            <t>0</t>
-            <s>2 loadVideo 00.mov 0</s>
-        </comand>
         <command>
             <t>0</t>
+            <s>6 stopArtnet 1</s>
+        </command>
+        <command>
+            <t>1</t>
+            <s>2 loadVideo 00.mov 0</s>
+        </command>
+        <command>
+            <t>1</t>
+            <s>6 loadArtnet 00.mov 0</s>
+        </command>
+        <command>
+            <t>1</t>
             <s>3 loadVideo 00.mov 0</s>
         </command>
         <command>
-            <t>0</t>
+            <t>1</t>
             <s>4 loadVideo 00.mov 0</s>
         </command>
         <command>
-            <t>0</t>
+            <t>1</t>
             <s>5 loadVideo cicleLluna.mov 0</s>
         </command>
         <command>
-            <t>0</t>
+            <t>1</t>
             <s>5 loadArtnet cicleLunaDmx.mov 0</s>
         </command>
     </order>    
         
-    <order>    
+    <order>
+        <!-- Stop lluna image, iluminació i videos parets -->    
         <keycode>1</keycode>
         <command>
             <t>0</t>
-            <s>6 stopArtnet 0</s>
+            <s>2 stopImage 2</s>
         </command>
         <command>
             <t>0</t>
+            <s>3 stopVideo 2</s>
+        </command>
+        <command>
+            <t>0</t>
+            <s>4 stopVideo 2</s>
+        </command>
+        <command>
+            <t>0</t>
+            <s>6 stopArtnet 2</s>
+        </command>
+        <!-- Intro iluminació -->
+        <command>
+            <t>0</t>
+            <s>6 loop 0</s>
+        </command>
+        <command>
+            <t>0</t>
+            <s>6 loadArtnet 01_intro.mov 2</s>
+        </command>
+        <!-- load video taula when artnet finish 5" -->
+        <command>
+            <t>5</t>
             <s>2 loadVideo 01.mov 0</s>
         </command>
+        <!-- loadVideos de tot un cop acabi la taula -->
         <command>
             <t>30</t> <!-- Quan acabi el video taula -->
-            <s>2 loadVideo lluna.mov 0</s> <!-- Cambiar a loadImage? -->
+            <s>2 loadImage lluna.jpeg 2</s>
         </command>
         <command>
             <t>30</t>
-            <s>3 loadVideo 01.mov 0</s>
+            <s>3 loadVideo 01.mov 2</s>
         </command>
         <command>
             <t>30</t>
-            <s>4 loadVideo 01.mov 0</s>
+            <s>4 loadVideo 01.mov 2</s>
         </command>
         <command>
             <t>30</t>
-            <s>6 loadArtet 01.mov 0</s>
+            <s>6 loop 1</s>
         </command>
         <command>
             <t>30</t>
-            <s>5 loadVideo lluna.mov 0</s>
+            <s>6 loadArtet 01.mov 2</s>
         </command>
     </order>    
-        
-    <order>
-        <keycode>2</keycode>
-        <command>
-            <t>0</t>
-            <s>2 loadVideo stopMoon.mov 0</s>
-        </command>
-        <command>
-            <t>0</t>
-            <s>3 stopVideo 0</s>
-        </command>
-        <command>
-            <t>0</t>
-            <s>4 stopVideo 0</s>
-        </command>
-        <command>
-            <t>0</t>
-            <s>6 stopArtnet 0</s>
-        </command>
-        <command>
-            <t>0</t>
-            <s>2 loadVideo 02.mov 0</s>
-        </command>
-        <command>
-            <t>30</t> <!-- Quan acabi el video taula -->
-            <s>2 loadVideo lluna.mov 0</s> <!-- Cambiar a loadImage? -->
-        </command>
-        <command>
-            <t>30</t>
-            <s>3 loadVideo 02.mov 0</s>
-        </command>
-        <command>
-            <t>30</t>
-            <s>4 loadVideo 02.mov 0</s>
-        </command>
-        <command>
-            <t>30</t>
-            <s>6 loadArtet 02.mov 0</s>
-        </command>
-        <command>
-            <t>30</t>
-            <s>5 loadVideo lluna.mov 0</s>
-        </command>
-    </order>
-    
     
     <order>
         <keycode>3</keycode>
