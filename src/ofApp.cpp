@@ -21,7 +21,8 @@ void ofApp::setup()
     // TCP
     ///////
     setupTCPConnection(confTCPPort);
-    
+    isClientAchieved.resize(10);
+    isClientAchieved.assign(sizeof(bool), false);
     
     osc.setup(12345);
 }
@@ -322,7 +323,7 @@ void ofApp::handleTcpIn()
                 //slavesListFolder->collapse();
                 
                 int theId = ofToInt(tokens[1]);
-                cout << "Hi !! I got a PONG TCP message !! >> " << str <<" <<  from client : " << i << " with ID : " << theId << endl;
+                
                 
                 // to slave info
                 slaveInfo s;
@@ -337,7 +338,12 @@ void ofApp::handleTcpIn()
                     s.name = "defaultName";
                     s.ip = tcpServer.getClientIP(i);
                 }
-                connectedClients.push_back(ofToString(i) + " " + ofToString(s.id) + " " +s.name + " " + s.ip);
+                if(!isClientAchieved[i]){
+                    connectedClients.push_back(ofToString(i) + " " + ofToString(s.id) + " " +s.name + " " + s.ip);
+                    isClientAchieved[i] = true;
+                    cout << "Hi !! I got a PONG TCP message !! >> " << str <<" <<  from client : " << i << " with ID : " << theId << endl;
+                }
+                
             }
             if(tokens[0]=="awake")
             {
@@ -398,7 +404,7 @@ void ofApp::sendMessageToSlavesFolder(string m)
          back_inserter(tokens));
     
     string request_id = tokens[0];
-    for(int i=0;i<num;i++)
+    for(int i=0; i<num; i++)
     {
         istringstream iss2(connectedClients[i]);
         vector<string> tokens2;
@@ -409,7 +415,9 @@ void ofApp::sendMessageToSlavesFolder(string m)
         if(id == request_id){
             string messageTcp = m;
             sendTcpMessageToSlave(messageTcp, ofToInt(tokens2[0]));
+//            cout<< "id: " <<   id << " -- request id: " << request_id << endl;
         }
+//        cout<< "id: " <<   id << " -- request id: " << request_id << endl;
     }
 }
 

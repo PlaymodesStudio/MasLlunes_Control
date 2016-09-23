@@ -46,6 +46,7 @@ public:
     void                sendMessageToSlavesFolder(string messageWithoutId);
     
     vector<string>      connectedClients;
+    vector<bool>        isClientAchieved;
 
     // IP
     vector<string>      getDevicesIPs();
