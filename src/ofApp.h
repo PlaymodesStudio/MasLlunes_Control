@@ -24,9 +24,6 @@ public:
     
     void keyPressed(int key);
     void mouseMoved(int x, int y);
-
-
-    int                     getIdFromSlave(int i);
     
     // TCP
     void                setupTCPConnection(int port);

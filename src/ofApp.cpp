@@ -9,11 +9,10 @@ void ofApp::setup()
     networkDevices       = getDevicesIPs();
     networkDevicesAndIPs = buildDevicesIPsString();
     timeLastConnection = ofGetElapsedTimef();
-    volume = 0;
+    volume = 0.5;
     
     /// READ CONF
     readConfig();
-    
     readCommands();
     initialTimeStamp = 0;
     timer = 0;
@@ -49,14 +48,13 @@ void ofApp::update()
             equalHack--;
     }
     
-    
     // TCP
     tcpLock.lock();
     handleTcpIn();
     handleTcpOut();
     tcpLock.unlock();
     
-    // if we got too much time without connection ...
+    // if we got too much time without connection...
     if(!tcpServer.isConnected() && (ofGetElapsedTimef()-timeLastConnection>35.0))
     {
         // reset TCP connection
@@ -72,7 +70,7 @@ void ofApp::update()
     if(selectedCommandSequence.size() != 0){
         timer = ofGetElapsedTimef() - initialTimeStamp;
         while(selectedCommandSequence[0].first < timer){
-            cout<<"Send command: "<<selectedCommandSequence[0].second<<endl;
+            cout<<"Time: " << timer <<  " -- Send command: "<<selectedCommandSequence[0].second<<endl;
             processTcpCommand(selectedCommandSequence[0].second);
             selectedCommandSequence.pop_front();
             if(selectedCommandSequence.size() == 0)
@@ -177,7 +175,7 @@ void ofApp::readCommands()
     ofxXmlSettings configXML;
     configXML.load("./app/tcpCommands.xml");
     configXML.pushTag("tcpCommands");
-    for(int i = 0; configXML.pushTag("order", i) ; i++){
+    for(int i = 0; configXML.pushTag("order", i); i++){
         pair<string, vector<pair<float, string>>> tempOrder;
         tempOrder.first = configXML.getValue("keycode", "error");
         for(int j = 0; configXML.pushTag("command", j); j++){
@@ -190,25 +188,22 @@ void ofApp::readCommands()
         tcpCommands.push_back(tempOrder);
         configXML.popTag();
     }
-    //configXML.popTag();
-
     
-    /// TCP SETUP
-    confTCPPort = configXML.getValue("TCPPort",11999);
+    // Order tcpCommands from .first
     
-    /// add to LOG
-    //ofLog(OF_LOG_NOTICE) << "ofApp :: readConfig :: networkDevice " << confNetworkDevice << " :: TCP Port " << confTCPPort << endl;
-    cout << "ofApp :: readConfig :: networkDevice " << confNetworkDevice << " :: TCP Port " << confTCPPort << endl;
-    
-}
-
-//-------------------------------------------------------------------------------
-int ofApp::getIdFromSlave(int i)
-{
-    //ofxDatGuiToggle* t = slavesListFolder->getToggleAt(i);
-    //string whichIdString = ofSplitString(t->getLabel()," ")[0];
-    
-    //return (ofToInt(whichIdString));
+    //FOUND: http://stackoverflow.com/questions/279854/how-do-i-sort-a-vector-of-pairs-based-on-the-second-element-of-the-pair
+    for(auto &tcpCommand : tcpCommands){
+        std::sort(tcpCommand.second.begin(), tcpCommand.second.end(), [](pair<float, string> &left, pair<float, string> &right) {
+            return left.first < right.first;
+        });
+    }
+        
+    cout<< "---- Loaded Info ----" << endl;
+    for(auto tcpCommand : tcpCommands){
+        cout << "KeyCombination: " << tcpCommand.first << endl;
+        for (auto message : tcpCommand.second)
+            cout << "--> " << message.first << " -- " << message.second << endl;
+    }
 }
 
 #pragma mark ---------- System events ----------
@@ -216,12 +211,12 @@ int ofApp::getIdFromSlave(int i)
 void ofApp::keyPressed(int key)
 {
     if(key == '+'){
-        volume += 0.05;
+        volume += 0.005;
         volume = ofClamp(volume, 0, 1);
         processTcpCommand("2 volume "+ofToString(volume));
     }
     else if(key == '-'){
-        volume -= 0.05;
+        volume -= 0.005;
         volume = ofClamp(volume, 0, 1);
         processTcpCommand("2 volume "+ofToString(volume));
     }
@@ -229,7 +224,7 @@ void ofApp::keyPressed(int key)
         cout<<"Send commands from keycombination: "<<keybuffer<<endl;
         for(auto preset : tcpCommands){
             if(preset.first == keybuffer){
-                cout<<"Start Counter"<<endl;
+                cout<<"-----Start Counter------"<<endl;
                 initialTimeStamp = ofGetElapsedTimef();
                 //Clear command sequence deque and fill with new info.
                 selectedCommandSequence.clear();
@@ -239,10 +234,16 @@ void ofApp::keyPressed(int key)
         }
         keybuffer.clear();
     }
+    else if(key == 'r'){
+        tcpCommands.clear();
+        readCommands();
+        initialTimeStamp = -1000;
+        cout << "Reload Commands" << endl;
+    }
     else
         keybuffer+=key;
     
-    cout<<char(key)  << " " << key  << " --- Enter keycode: " << OF_KEY_RETURN << " " << volume<<endl;
+    //cout<<char(key)  << " " << key  << " --- Enter keycode: " << OF_KEY_RETURN << " " << volume<<endl;
 }
 
 //--------------------------------------------------------------
@@ -313,17 +314,13 @@ void ofApp::handleTcpIn()
         
         if(str.length() > 0)
         {
-            
             vector<string> tokens = ofSplitString(str, " ");
             
             cout << "Received TCP message : " << str << endl;
             
             if(tokens[0]=="pong")
             {
-                //slavesListFolder->collapse();
-                
                 int theId = ofToInt(tokens[1]);
-                
                 
                 // to slave info
                 slaveInfo s;
@@ -339,15 +336,14 @@ void ofApp::handleTcpIn()
                     s.ip = tcpServer.getClientIP(i);
                 }
                 if(!isClientAchieved[i]){
-                    connectedClients.push_back(ofToString(i) + " " + ofToString(s.id) + " " +s.name + " " + s.ip);
+                    connectedClients.push_back(ofToString(i) + " " + ofToString(s.id) + " " + s.name + " " + s.ip);
                     isClientAchieved[i] = true;
-                    cout << "Hi !! I got a PONG TCP message !! >> " << str <<" <<  from client : " << i << " with ID : " << theId << endl;
+                    cout << "New Client to list, list size: " << connectedClients.size() << endl;
                 }
-                
             }
             if(tokens[0]=="awake")
             {
-                cout << "Received : awake . So sending ping to all !! " << endl;
+                cout << "Received awake. So sending ping to all!!" << endl;
                 sendTCPPingAll();
             }
         }
@@ -360,7 +356,6 @@ void ofApp::sendTcpMessageToAll(string mess)
 {
     if(tcpServer.isConnected())
     {
-        
         /// SEND TO ALL TCP CLIENTS !!
         //for each client lets send them a message
         for(int j = 0; j < tcpServer.getLastID(); j++)
@@ -370,7 +365,7 @@ void ofApp::sendTcpMessageToAll(string mess)
                 continue;
             }
             tcpServer.send(j,mess);
-            cout << "TCP Send : " << mess << endl;
+            cout << "TCP Send: " << mess << endl;
         }
     }
 }
@@ -476,7 +471,7 @@ void ofApp::resetTCPConnection(int _port)
     }
     else
     {
-        cout << "oo Couldn't Disconect All clients !! ERROR " << endl;
+        cout << "oo Couldn't Disconect All clients !! ERROR" << endl;
     }
     tcpLock.unlock();
 }
