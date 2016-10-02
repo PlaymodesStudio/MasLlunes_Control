@@ -3,51 +3,63 @@
         <keycode>.</keycode>
         <command>
             <t> 0 </t>
-            <s> 6 loadArtnet ilumnacioPrevia.mov 3</s>
+            <s> 6 loadArtnet start.mov 3</s>
+        </command>
+        <command>
+            <t> 0 </t>
+            <s> 6 loopArtnet 0 </s>
         </command>
         <command>
             <t>0</t>
-            <s>2 loadVideo musicaAmiental.mov 0</s>
+            <s>2 stopImage 2</s>
         </command> <!-- Set the walls videos to loop true (Not done, we use config.xml) -->
+        <command>
+            <t> 0 </t>
+            <s> 3 loadVideo start.mov 2 </s>
+        </command>
+        <command>
+            <t> 0 </t>
+            <s> 4 loadVideo start.mov 2 </s>
+        </command>
     </order>
     
     <order>    
         <keycode>0</keycode>
         <command>
             <t>0</t>
-            <s>6 stopArtnet 1</s>
-        </command>
-        <command>
-            <t>1</t>
             <s>2 loadVideo 0.mov 0</s>
         </command>
         <command>
-            <t>1</t>
+            <t>0</t>
             <s>6 loadArtnet 0.mov 0</s>
         </command>
         <command>
-            <t>1</t>
+            <t>0</t>
             <s>3 stopVideo 2</s>
         </command>
         <command>
-            <t>1</t>
+            <t>0</t>
             <s>4 stopVideo 2</s>
         </command>
         <command>
-            <t>1</t>
-            <s>6 loadVideo cicleLluna.mov 0</s>
+            <t>0</t>
+            <s>5 loadVideo cicleLluna.mov 0</s>
+        </command>
+        <command>
+            <t>0</t>
+            <s>5 loadArtnet cicleLunaDmx.mov 0</s>
         </command>
         <command>
             <t>1</t>
-            <s>6 loadArtnet cicleLunaDmx.mov 0</s>
-        </command>
-        <command>
-            <t>5</t>
             <s>6 loopArtnet 0</s>
         </command>
         <command>
             <t>65</t>
-            <s>2 loadImage lluna.png 2</s>
+            <s>2 loadImage lluna/lluna1.png 2</s>
+        </command>
+        <command>
+            <t>65</t>
+            <s>6 stopArtnet 5 </s>
         </command>
     </order>    
         
@@ -70,7 +82,7 @@
             <s>6 loadArtnet 1_intro.mov 2</s>
         </command>
         <command> <!-- Intro iluminació -->
-            <t>1</t>
+            <t>0</t>
             <s>6 loopArtnet 0</s>
         </command>
         <command><!-- load video taula when artnet finish 5" -->
@@ -82,29 +94,654 @@
             <s>6 stopArtnet 2</s>
         </command>
         <command><!-- loadVideos de tot un cop acabi la taula -->
-            <t>99</t> <!-- Quan acabi el video taula -->
-            <s>2 loadImage lluna/llunaplena_png_levels_max.png 2</s>
+            <t>104</t> <!-- Quan acabi el video taula -->
+            <s>2 loadImage lluna/lluna1.png 2</s>
         </command>
         <command>
-            <t>99</t>
+            <t>104</t>
             <s>3 loadVideo 1.mov 2</s>
         </command>
         <command>
-            <t>99</t>
+            <t>104</t>
             <s>4 loadVideo 1.mov 2</s>
         </command>
         <command>
-            <t>99</t>
+            <t>104</t>
             <s>6 loadArtnet 1.mov 2</s>
         </command>
         <command>
             <t>104</t>
-            <s>6 loop 1</s>
+            <s>6 loopArtnet 1</s>
         </command>
     </order>
-    
+
+<order>
+    <keycode>2</keycode> <!-- Stop lluna image, iluminació i videos parets -->
+    <command>
+        <t>0</t>
+        <s>2 stopImage 2</s>
+    </command>
+    <command>
+        <t>0</t>
+        <s>3 stopVideo 2</s>
+    </command>
+    <command>
+        <t>0</t>
+        <s>4 stopVideo 2</s>
+    </command>
+    <command>
+        <t>0</t>
+        <s>6 loadArtnet 2_intro.mov 2</s>
+    </command>
+    <command> <!-- Intro iluminació -->
+        <t>0</t>
+        <s>6 loopArtnet 0</s>
+    </command>
+    <command><!-- load video taula when artnet finish 5" -->
+        <t>5</t>
+        <s>2 loadVideo 2.mov 0</s>
+    </command>
+    <command>
+        <t>5</t>
+        <s>6 stopArtnet 2</s>
+    </command>
+    <command><!-- loadVideos de tot un cop acabi la taula -->
+        <t>135</t> <!-- Quan acabi el video taula -->
+        <s>2 loadImage lluna/lluna1.png 2</s>
+    </command>
+    <command>
+        <t>135</t>
+        <s>3 loadVideo 2.mov 2</s>
+    </command>
+    <command>
+        <t>135</t>
+        <s>4 loadVideo 2.mov 2</s>
+    </command>
+    <command>
+        <t>135</t>
+        <s>6 loadArtnet 2.mov 2</s>
+    </command>
+    <command>
+        <t>135</t>
+        <s>6 loopArtnet 1</s>
+    </command>
+</order>
+
+<order>
+    <keycode>3</keycode> <!-- Stop lluna image, iluminació i videos parets -->
+    <command>
+        <t>0</t>
+        <s>2 stopImage 2</s>
+    </command>
+    <command>
+        <t>0</t>
+        <s>3 stopVideo 2</s>
+    </command>
+    <command>
+        <t>0</t>
+        <s>4 stopVideo 2</s>
+    </command>
+    <command>
+        <t>0</t>
+        <s>6 loadArtnet 3_intro.mov 2</s>
+    </command>
+    <command> <!-- Intro iluminació -->
+        <t>0</t>
+        <s>6 loopArtnet 0</s>
+    </command>
+    <command><!-- load video taula when artnet finish 5" -->
+        <t>5</t>
+        <s>2 loadVideo 3.mov 0</s>
+    </command>
+    <command>
+        <t>5</t>
+        <s>6 stopArtnet 2</s>
+    </command>
+    <command><!-- loadVideos de tot un cop acabi la taula -->
+        <t>113</t> <!-- Quan acabi el video taula -->
+        <s>2 loadImage lluna/lluna1.png 2</s>
+    </command>
+    <command>
+        <t>104</t>
+        <s>3 loadVideo 3.mov 2</s>
+    </command>
+    <command>
+        <t>113</t>
+        <s>4 loadVideo 3.mov 2</s>
+    </command>
+    <command>
+        <t>113</t>
+        <s>6 loadArtnet 3.mov 2</s>
+    </command>
+    <command>
+        <t>113</t>
+        <s>6 loopArtnet 1</s>
+    </command>
+</order>
+
+<order>
+    <keycode>4</keycode> <!-- Stop lluna image, iluminació i videos parets -->
+    <command>
+        <t>0</t>
+        <s>2 stopImage 2</s>
+    </command>
+    <command>
+        <t>0</t>
+        <s>3 stopVideo 2</s>
+    </command>
+    <command>
+        <t>0</t>
+        <s>4 stopVideo 2</s>
+    </command>
+    <command>
+        <t>0</t>
+        <s>6 loadArtnet 4_intro.mov 2</s>
+    </command>
+    <command> <!-- Intro iluminació -->
+        <t>0</t>
+        <s>6 loopArtnet 0</s>
+    </command>
+    <command><!-- load video taula when artnet finish 5" -->
+        <t>5</t>
+        <s>2 loadVideo 4.mov 0</s>
+    </command>
+    <command>
+        <t>5</t>
+        <s>6 stopArtnet 2</s>
+    </command>
+    <command><!-- loadVideos de tot un cop acabi la taula -->
+        <t>119</t> <!-- Quan acabi el video taula -->
+        <s>2 loadImage lluna/lluna1.png 2</s>
+    </command>
+    <command>
+        <t>119</t>
+        <s>3 loadVideo 4.mov 2</s>
+    </command>
+    <command>
+        <t>119</t>
+        <s>4 loadVideo 4.mov 2</s>
+    </command>
+    <command>
+        <t>119</t>
+        <s>6 loadArtnet 4.mov 2</s>
+    </command>
+    <command>
+        <t>119</t>
+        <s>6 loopArtnet 1</s>
+    </command>
+</order>
+<order>
+    <keycode>5</keycode> <!-- Stop lluna image, iluminació i videos parets -->
+    <command>
+        <t>0</t>
+        <s>2 stopImage 2</s>
+    </command>
+    <command>
+        <t>0</t>
+        <s>3 stopVideo 2</s>
+    </command>
+    <command>
+        <t>0</t>
+        <s>4 stopVideo 2</s>
+    </command>
+    <command>
+        <t>0</t>
+        <s>6 loadArtnet 5_intro.mov 2</s>
+    </command>
+    <command> <!-- Intro iluminació -->
+        <t>0</t>
+        <s>6 loopArtnet 0</s>
+    </command>
+    <command><!-- load video taula when artnet finish 5" -->
+        <t>5</t>
+        <s>2 loadVideo 5.mov 0</s>
+    </command>
+    <command>
+        <t>5</t>
+        <s>6 stopArtnet 2</s>
+    </command>
+    <command><!-- loadVideos de tot un cop acabi la taula -->
+        <t>116</t> <!-- Quan acabi el video taula -->
+        <s>2 loadImage lluna/lluna1.png 2</s>
+    </command>
+    <command>
+        <t>116</t>
+        <s>3 loadVideo 5.mov 2</s>
+    </command>
+    <command>
+        <t>116</t>
+        <s>4 loadVideo 5.mov 2</s>
+    </command>
+    <command>
+        <t>116</t>
+        <s>6 loadArtnet 5.mov 2</s>
+    </command>
+    <command>
+        <t>116</t>
+        <s>6 loopArtnet 1</s>
+    </command>
+</order>
+
+<order>
+    <keycode>6</keycode> <!-- Stop lluna image, iluminació i videos parets -->
+    <command>
+        <t>0</t>
+        <s>2 stopImage 2</s>
+    </command>
+    <command>
+        <t>0</t>
+        <s>3 stopVideo 2</s>
+    </command>
+    <command>
+        <t>0</t>
+        <s>4 stopVideo 2</s>
+    </command>
+    <command>
+        <t>0</t>
+        <s>6 loadArtnet 6_intro.mov 2</s>
+    </command>
+    <command> <!-- Intro iluminació -->
+        <t>0</t>
+        <s>6 loopArtnet 0</s>
+    </command>
+    <command><!-- load video taula when artnet finish 5" -->
+        <t>5</t>
+        <s>2 loadVideo 6.mov 0</s>
+    </command>
+    <command>
+        <t>5</t>
+        <s>6 stopArtnet 2</s>
+    </command>
+    <command><!-- loadVideos de tot un cop acabi la taula -->
+        <t>109</t> <!-- Quan acabi el video taula -->
+        <s>2 loadImage lluna/lluna1.png 2</s>
+    </command>
+    <command>
+        <t>109</t>
+        <s>3 loadVideo 6.mov 2</s>
+    </command>
+    <command>
+        <t>109</t>
+        <s>4 loadVideo 6.mov 2</s>
+    </command>
+    <command>
+        <t>109</t>
+        <s>6 loadArtnet 6.mov 2</s>
+    </command>
+    <command>
+        <t>109</t>
+        <s>6 loopArtnet 1</s>
+    </command>
+</order>
+
+<order>
+    <keycode>7</keycode> <!-- Stop lluna image, iluminació i videos parets -->
+    <command>
+        <t>0</t>
+        <s>2 stopImage 2</s>
+    </command>
+    <command>
+        <t>0</t>
+        <s>3 stopVideo 2</s>
+    </command>
+    <command>
+        <t>0</t>
+        <s>4 stopVideo 2</s>
+    </command>
+    <command>
+        <t>0</t>
+        <s>6 loadArtnet 7_intro.mov 2</s>
+    </command>
+    <command> <!-- Intro iluminació -->
+        <t>0</t>
+        <s>6 loopArtnet 0</s>
+    </command>
+    <command><!-- load video taula when artnet finish 5" -->
+        <t>5</t>
+        <s>2 loadVideo 7.mov 0</s>
+    </command>
+    <command>
+        <t>5</t>
+        <s>6 stopArtnet 2</s>
+    </command>
+    <command><!-- loadVideos de tot un cop acabi la taula -->
+        <t>90</t> <!-- Quan acabi el video taula -->
+        <s>2 loadImage lluna/lluna1.png 2</s>
+    </command>
+    <command>
+        <t>90</t>
+        <s>3 loadVideo 7.mov 2</s>
+    </command>
+    <command>
+        <t>90</t>
+        <s>4 loadVideo 7.mov 2</s>
+    </command>
+    <command>
+        <t>90</t>
+        <s>6 loadArtnet 7.mov 2</s>
+    </command>
+    <command>
+        <t>90</t>
+        <s>6 loopArtnet 1</s>
+    </command>
+</order>
+
+<order>
+    <keycode>8</keycode> <!-- Stop lluna image, iluminació i videos parets -->
+    <command>
+        <t>0</t>
+        <s>2 stopImage 2</s>
+    </command>
+    <command>
+        <t>0</t>
+        <s>3 stopVideo 2</s>
+    </command>
+    <command>
+        <t>0</t>
+        <s>4 stopVideo 2</s>
+    </command>
+    <command>
+        <t>0</t>
+        <s>6 loadArtnet 8_intro.mov 2</s>
+    </command>
+    <command> <!-- Intro iluminació -->
+        <t>0</t>
+        <s>6 loopArtnet 0</s>
+    </command>
+    <command><!-- load video taula when artnet finish 5" -->
+        <t>5</t>
+        <s>2 loadVideo 8.mov 0</s>
+    </command>
+    <command>
+        <t>5</t>
+        <s>6 stopArtnet 2</s>
+    </command>
+    <command><!-- loadVideos de tot un cop acabi la taula -->
+        <t>124</t> <!-- Quan acabi el video taula -->
+        <s>2 loadImage lluna/lluna1.png 2</s>
+    </command>
+    <command>
+        <t>124</t>
+        <s>3 loadVideo 8.mov 2</s>
+    </command>
+    <command>
+        <t>124</t>
+        <s>4 loadVideo 8.mov 2</s>
+    </command>
+    <command>
+        <t>124</t>
+        <s>6 loadArtnet 8.mov 2</s>
+    </command>
+    <command>
+        <t>124</t>
+        <s>6 loopArtnet 1</s>
+    </command>
+</order>
+
+<order>
+    <keycode>9</keycode> <!-- Stop lluna image, iluminació i videos parets -->
+    <command>
+        <t>0</t>
+        <s>2 stopImage 2</s>
+    </command>
+    <command>
+        <t>0</t>
+        <s>3 stopVideo 2</s>
+    </command>
+    <command>
+        <t>0</t>
+        <s>4 stopVideo 2</s>
+    </command>
+    <command>
+        <t>0</t>
+        <s>6 loadArtnet 9_intro.mov 2</s>
+    </command>
+    <command> <!-- Intro iluminació -->
+        <t>0</t>
+        <s>6 loopArtnet 0</s>
+    </command>
+    <command><!-- load video taula when artnet finish 5" -->
+        <t>5</t>
+        <s>2 loadVideo 9.mov 0</s>
+    </command>
+    <command>
+        <t>5</t>
+        <s>6 stopArtnet 2</s>
+    </command>
+    <command><!-- loadVideos de tot un cop acabi la taula -->
+        <t>61</t> <!-- Quan acabi el video taula -->
+        <s>2 loadImage lluna/lluna1.png 2</s>
+    </command>
+    <command>
+        <t>61</t>
+        <s>3 loadVideo 9.mov 2</s>
+    </command>
+    <command>
+        <t>61</t>
+        <s>4 loadVideo 9.mov 2</s>
+    </command>
+    <command>
+        <t>61</t>
+        <s>6 loadArtnet 9.mov 2</s>
+    </command>
+    <command>
+        <t>61</t>
+        <s>6 loopArtnet 1</s>
+    </command>
+</order>
+
+<order>
+    <keycode>10</keycode> <!-- Stop lluna image, iluminació i videos parets -->
+    <command>
+        <t>0</t>
+        <s>2 stopImage 2</s>
+    </command>
+    <command>
+        <t>0</t>
+        <s>3 stopVideo 2</s>
+    </command>
+    <command>
+        <t>0</t>
+        <s>4 stopVideo 2</s>
+    </command>
+    <command>
+        <t>0</t>
+        <s>6 loadArtnet 10_intro.mov 2</s>
+    </command>
+    <command> <!-- Intro iluminació -->
+        <t>0</t>
+        <s>6 loopArtnet 0</s>
+    </command>
+    <command><!-- load video taula when artnet finish 5" -->
+        <t>5</t>
+        <s>2 loadVideo 10.mov 0</s>
+    </command>
+    <command>
+        <t>5</t>
+        <s>6 stopArtnet 2</s>
+    </command>
+    <command><!-- loadVideos de tot un cop acabi la taula -->
+        <t>74</t> <!-- Quan acabi el video taula -->
+        <s>2 loadImage lluna/lluna1.png 2</s>
+    </command>
+    <command>
+        <t>74</t>
+        <s>3 loadVideo 10.mov 2</s>
+    </command>
+    <command>
+        <t>74</t>
+        <s>4 loadVideo 10.mov 2</s>
+    </command>
+    <command>
+        <t>74</t>
+        <s>6 loadArtnet 10.mov 2</s>
+    </command>
+    <command>
+        <t>74</t>
+        <s>6 loopArtnet 1</s>
+    </command>
+</order>
+
+<order>
+    <keycode>11</keycode> <!-- Stop lluna image, iluminació i videos parets -->
+    <command>
+        <t>0</t>
+        <s>2 stopImage 2</s>
+    </command>
+    <command>
+        <t>0</t>
+        <s>3 stopVideo 2</s>
+    </command>
+    <command>
+        <t>0</t>
+        <s>4 stopVideo 2</s>
+    </command>
+    <command>
+        <t>0</t>
+        <s>6 loadArtnet 11_intro.mov 2</s>
+    </command>
+    <command> <!-- Intro iluminació -->
+        <t>0</t>
+        <s>6 loopArtnet 0</s>
+    </command>
+    <command><!-- load video taula when artnet finish 5" -->
+        <t>5</t>
+        <s>2 loadVideo 11.mov 0</s>
+    </command>
+    <command>
+        <t>5</t>
+        <s>6 stopArtnet 2</s>
+    </command>
+    <command><!-- loadVideos de tot un cop acabi la taula -->
+        <t>104</t> <!-- Quan acabi el video taula -->
+        <s>2 loadImage lluna/lluna1.png 2</s>
+    </command>
+    <command>
+        <t>64</t>
+        <s>3 loadVideo 11.mov 2</s>
+    </command>
+    <command>
+        <t>64</t>
+        <s>4 loadVideo 11.mov 2</s>
+    </command>
+    <command>
+        <t>64</t>
+        <s>6 loadArtnet 1.mov 2</s>
+    </command>
+    <command>
+        <t>64</t>
+        <s>6 loopArtnet 1</s>
+    </command>
+</order>
+
+<order>
+    <keycode>12</keycode> <!-- Stop lluna image, iluminació i videos parets -->
+    <command>
+        <t>0</t>
+        <s>2 stopImage 2</s>
+    </command>
+    <command>
+        <t>0</t>
+        <s>3 stopVideo 2</s>
+    </command>
+    <command>
+        <t>0</t>
+        <s>4 stopVideo 2</s>
+    </command>
+    <command>
+        <t>0</t>
+        <s>6 loadArtnet 12_intro.mov 2</s>
+    </command>
+    <command> <!-- Intro iluminació -->
+        <t>0</t>
+        <s>6 loopArtnet 0</s>
+    </command>
+    <command><!-- load video taula when artnet finish 5" -->
+        <t>5</t>
+        <s>2 loadVideo 12.mov 0</s>
+    </command>
+    <command>
+        <t>5</t>
+        <s>6 stopArtnet 2</s>
+    </command>
+    <command><!-- loadVideos de tot un cop acabi la taula -->
+        <t>52</t> <!-- Quan acabi el video taula -->
+        <s>2 loadImage lluna/lluna1.png 2</s>
+    </command>
+    <command>
+        <t>52</t>
+        <s>3 loadVideo 12.mov 2</s>
+    </command>
+    <command>
+        <t>52</t>
+        <s>4 loadVideo 12.mov 2</s>
+    </command>
+    <command>
+        <t>52</t>
+        <s>6 loadArtnet 12.mov 2</s>
+    </command>
+    <command>
+        <t>52</t>
+        <s>6 loopArtnet 1</s>
+    </command>
+</order>
+<order>
+    <keycode>13</keycode> <!-- Stop lluna image, iluminació i videos parets -->
+    <command>
+        <t>0</t>
+        <s>2 stopImage 2</s>
+    </command>
+    <command>
+        <t>0</t>
+        <s>3 stopVideo 2</s>
+    </command>
+    <command>
+        <t>0</t>
+        <s>4 stopVideo 2</s>
+    </command>
+    <command>
+        <t>0</t>
+        <s>6 loadArtnet 13_intro.mov 2</s>
+    </command>
+    <command> <!-- Intro iluminació -->
+        <t>0</t>
+        <s>6 loopArtnet 0</s>
+    </command>
+    <command><!-- load video taula when artnet finish 5" -->
+        <t>5</t>
+        <s>2 loadVideo 13.mov 0</s>
+    </command>
+    <command>
+        <t>5</t>
+        <s>6 stopArtnet 2</s>
+    </command>
+    <command><!-- loadVideos de tot un cop acabi la taula -->
+        <t>104</t> <!-- Quan acabi el video taula -->
+        <s>2 loadImage lluna/lluna1.png 2</s>
+    </command>
+    <command>
+        <t>104</t>
+        <s>3 loadVideo 13.mov 2</s>
+    </command>
+    <command>
+        <t>104</t>
+        <s>4 loadVideo 13.mov 2</s>
+    </command>
+    <command>
+        <t>104</t>
+        <s>6 loadArtnet 13.mov 2</s>
+    </command>
+    <command>
+        <t>104</t>
+        <s>6 loopArtnet 1</s>
+    </command>
+</order>
+
+
+
+
     <order>
-        <keycode>2</keycode><!-- Stop lluna image, iluminació i videos parets -->
+        <keycode>99</keycode> <!-- Stop lluna image, iluminació i videos parets -->
         <command>
             <t>0</t>
             <s>2 stopImage 2</s>
@@ -119,51 +756,99 @@
         </command>
         <command>
             <t>0</t>
-            <s>6 stopArtnet 2</s>
+            <s>6 loadArtnet start.mov 2</s>
         </command>
-        <command><!-- Intro iluminació -->
-            <t>4</t>
+        <command> <!-- Intro iluminació -->
+            <t>0</t>
             <s>6 loopArtnet 0</s>
         </command>
-        <command>
-            <t>0</t>
-            <s>6 loadArtnet 2_intro.mov 2</s>
-        </command>
         <command><!-- load video taula when artnet finish 5" -->
+            <t>0</t>
+            <s>2 loadVideo 99.mov 0</s>
+        </command>
+        <command>
             <t>5</t>
-            <s>2 loadVideo 2.mov 0</s>
-        </command>
-        <command><!-- loadVideos de tot un cop acabi la taula -->
-            <t>130</t> <!-- Quan acabi el video taula -->
-            <s>2 loadImage lluna/llunaplena_png_levels_max.png 2</s>
+            <s>6 stopArtnet 2</s>
         </command>
         <command>
-            <t>130</t>
-            <s>3 loadVideo 2.mov 2</s>
+            <t>37</t>
+            <s>6 loadArtnet start.mov 2</s>
         </command>
         <command>
-            <t>130</t>
-            <s>4 loadVideo 2.mov 2</s>
+            <t>37</t>
+            <s>3 loadVideo start.mov 2</s>
         </command>
         <command>
-            <t>135</t>
-            <s>6 loopArtnet 1</s>
-        </command>
-        <command>
-            <t>130</t>
-            <s>6 loadArtnet 2.mov 2</s>
+            <t>37</t>
+            <s>4 loadVideo start.mov 2</s>
         </command>
     </order>
     
     <order>
-        <keycode>3</keycode>
+        <keycode>/</keycode>
         <command>
-            <t>11</t>
-            <s>11 loadVideo fingers.mov 3</s>
+            <t>0</t>
+            <s>2 stopVideo 0</s>
         </command>
         <command>
-            <t>9.9</t>
-            <s>5 loadvideo test.mov 4</s>
+            <t>0</t>
+            <s>2 stopImage 0</s>
+        </command>
+        <command>
+            <t>0</t>
+            <s>3 stopVideo 0</s>
+        </command>
+        <command>
+            <t>0</t>
+            <s>4 stopVideo 0</s>raspberry
+            
+        </command>
+        <command>
+            <t>1</t>
+            <s>2 shutdown</s>
+        </command>
+        <command>
+            <t>1</t>
+            <s>3 shutdown</s>
+        </command>
+        <command>
+            <t>1</t>
+            <s>4 shutdown</s>
+        </command>
+        <command>
+            <t>1</t>
+            <s>5 shutdown</s>
+        </command>
+        <command>
+            <t>0</t>
+            <s>6 stopArtnet 1</s>
+        </command>
+        <command>
+            <t>1</t>
+            <s>6 shutdown</s>
+        </command>
+    </order>
+    <order>
+        <keycode>666</keycode>
+        <command>
+            <t>0</t>
+            <s>2 shutdown</s>
+        </command>
+        <command>
+            <t>0</t>
+            <s>3 shutdown</s>
+        </command>
+        <command>
+            <t>0</t>
+            <s>4 shutdown</s>
+        </command>
+        <command>
+            <t>0</t>
+            <s>5 shutdown</s>
+        </command>
+        <command>
+            <t>0</t>
+            <s>6 shutdown</s>
         </command>
     </order>
 </tcpCommands>
